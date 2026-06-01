@@ -1,0 +1,666 @@
+
+🔐 Identity & Access Management / Security
+	• How would you integrate Attribute-Based Access Control (ABAC) with existing systems like Active Directory or Entra ID?
+	• Can you explain the difference between Role-Based Access Control (RBAC) and ABAC, and when you’d use one over the other?
+	• How have you implemented Data Loss Prevention (DLP) in Azure or hybrid environments?
+	• What strategies do you use to ensure compliance with GDPR, FINMA, MAS when designing security solutions?
+	• How do you secure multi-cloud integrations (Azure, SaaS, on-prem) while maintaining consistent identity governance?
+
+⚙️ Integration & Troubleshooting
+	• Walk me through how you would troubleshoot a Level 3 software issue involving multiple teams (network, cloud, vendor).
+	• How do you approach root cause analysis when logs are distributed across different systems (Azure Monitor, SIEM, Defender)?
+	• Give an example of a time you integrated a vendor product into enterprise systems—what challenges did you face?
+	• How would you automate upgrades of vendor software on Azure Kubernetes Service (AKS) or OpenShift?
+
+☁️ Cloud & Infrastructure
+	• How do you design disaster recovery solutions for critical security services in Azure?
+	• What’s your approach to automating infrastructure using ARM templates or Terraform?
+	• How do you secure workloads running in AKS/OpenShift?
+	• Can you explain how you would integrate data classification and IRM solutions with Azure Information Protection (AIP)?
+
+🔄 CI/CD & Automation
+	• How do you design and maintain CI/CD pipelines in GitLab, Azure DevOps, or Jenkins for secure deployments?
+	• What’s your process for automating builds (RPM, MSI) for test environments across Linux/Windows/Citrix?
+	• How do you ensure security baselines are enforced in automated deployments?
+
+📊 Regulatory & Compliance
+	• How do you ensure that data protection solutions meet regulatory requirements across multiple jurisdictions?
+	• Can you describe a project where you achieved compliance with GDPR or FINMA through technical controls?
+	• How do you balance business needs vs. regulatory constraints when designing security solutions?
+
+🧠 Behavioral / Situational
+	• Tell me about a time you had to push forward an architectural option that wasn’t initially accepted—how did you convince stakeholders?
+	• Describe a situation where you had to chair technical leadership and align execution with strategic goals.
+	• How do you handle conflicts between vendor limitations and enterprise requirements?
+	• What’s your approach to continuous learning when new cloud security technologies emerge?
+
+🎯 Likely Deep-Dive Areas (based on your CV)
+	• Email encryption/decryption in banking environments—how did you design and maintain it?
+	• Symantec Enterprise Vault and eDiscovery tools—how did you support regulatory investigations?
+	• Data Loss Prevention (DLP)—what architecture did you design, and how did you integrate cloud-based platforms?
+	• Azure AIP / IRM—how did you implement classification and rights management at scale?
+
+✅ Preparation Strategy
+	• Brush up on ABAC concepts and integration with enterprise systems.
+	• Revise Kubernetes/OpenShift upgrade automation and CI/CD pipeline security.
+	• Prepare compliance stories (GDPR, FINMA, MAS) with technical depth.
+	• Highlight troubleshooting methodology—they’ll want to see structured problem-solving.
+	• Show leadership examples—how you influenced architecture decisions and managed global rollouts.
+
+Would you like me to simulate a mock interview with sample Q&A so you can practice answering these questions in a structured way? That way, you’ll be ready with strong, concise responses.
+
+These are foundational terms in IAM / ABAC discussions. Interviewers expect you to explain them clearly, simply, and confidently—not with vendor marketing language.
+Below is the bank-grade explanation you can use.
+
+1️⃣ IGA — Identity Governance & Administration
+What it is
+IGA is about governing and controlling access over time.
+	Think: Who should have access, why, for how long, and who approved it?
+What IGA does
+	• Joiner / mover / leaver access
+	• Access requests & approvals
+	• Periodic access reviews (recertification)
+	• Segregation of Duties (SoD)
+	• Audit & compliance reporting
+Role in ABAC
+	• IGA does NOT make runtime access decisions
+	• It manages entitlements that become attributes for ABAC
+One-liner (interview gold)
+	IGA governs access lifecycle; ABAC enforces access at runtime.
+
+2️⃣ AIP — Azure Information Protection
+What it is
+AIP classifies, labels, and protects data based on sensitivity.
+	Think: What is the data and how sensitive is it?
+What AIP provides
+	• Data classification labels (Public, Confidential, Highly Confidential)
+	• Encryption
+	• Usage restrictions (no copy, no forward, no print)
+	• Persistent protection (data stays protected even outside the org)
+Role in ABAC
+	• AIP labels become data attributes
+	• ABAC policies use these attributes for access decisions
+Example
+	“Only users with clearance ≥ Confidential can access data labeled Confidential.”
+One-liner
+	AIP defines data sensitivity; ABAC uses it to control access.
+
+3️⃣ Data Catalogue
+What it is
+A Data Catalogue is a centralized inventory of enterprise data assets.
+	Think: What data do we have, where is it, who owns it, and how sensitive is it?
+What it contains
+	• Dataset metadata
+	• Data owner
+	• Classification
+	• Residency / jurisdiction
+	• Business context
+Role in ABAC
+	• Provides resource attributes
+	• Enables policies like:
+		○ Ownership-based access
+		○ Jurisdiction-based access
+		○ Sensitivity-based access
+One-liner
+	A data catalogue makes data discoverable and governable.
+
+4️⃣ IdP — Identity Provider
+What it is
+An IdP authenticates users and issues identity assertions.
+	Think: Who is the user and can they prove it?
+What an IdP does
+	• User authentication
+	• Issues tokens (SAML / OAuth / OIDC)
+	• Provides identity attributes as claims
+	• Supports MFA, Conditional Access
+Examples
+	• On-prem Active Directory
+	• Azure Entra ID
+Role in ABAC
+	• Supplies identity and context attributes
+	• Does NOT decide authorization
+One-liner
+	IdP proves identity; ABAC decides access.
+
+5️⃣ How They Work Together (This Is the Big Picture)
+End-to-End Flow
+	1. IdP authenticates the user and provides identity attributes
+	2. IGA supplies business entitlements
+	3. AIP / Data Catalogue provide data sensitivity and metadata
+	4. ABAC engine evaluates policies
+	5. Application enforces the decision
+
+6️⃣ 15-Second Summary (Memorize This)
+	IdP authenticates users, IGA governs who should have access, AIP and data catalogues define data sensitivity, and ABAC brings everything together to make dynamic, policy-based access decisions.
+
+If you want next, I can:
+	• 🔥 Give real interview follow-up questions for each term
+	• 🧠 Map these directly to an ABAC architecture diagram
+	• 🎯 Help you answer “Explain this to a non-technical manager”
+Just tell me.
+
+Based on your 7 years of deep experience in Azure Security and your background in highly regulated banking environments (Credit Suisse/UBS context), you are a strong candidate for this Integration Engineer role.
+
+The job description shifts the focus from "pure security operations" to Systems Integration and Engineering. They aren't just looking for someone to monitor alerts; they want someone who can stitch complex vendor software into a massive corporate ecosystem using code and automation.
+Here are the types of questions you should prepare for, categorized by the job’s core requirements:
+
+1. Identity & Access Management (ABAC focus)
+The JD specifically mentions Attribute Based Access Control (ABAC). Since you have Entra ID (formerly Azure AD) experience, they will test your ability to move beyond simple groups (RBAC) to dynamic policies.
+	• Scenario Question: "How would you integrate an ABAC-based vendor tool with a legacy Active Directory or a modern Entra ID environment?"
+	• Technical Deep Dive: "What is the difference between RBAC and ABAC in an Azure context, and how do you handle 'conflicting' permissions when a user meets two different attribute criteria?"
+	• The "CS/UBS" Twist: "Given the merger environment, how would you handle cross-forest or cross-tenant identity attributes for access control?"
+
+2. Infrastructure as Code (IaC) & Deployment
+The JD mentions AKS (Azure Kubernetes Service), OpenShift, and Terraform. Your security background is great, but they need to know if you can "build" the house, not just lock the doors.
+	• Automation: "Talk us through a time you used Terraform or ARM templates to deploy a security solution. How did you manage the state file in a multi-region deployment?"
+	• Kubernetes Security: "The JD mentions automating upgrades on AKS. How do you ensure a 'Zero Downtime' upgrade for a security-critical application?"
+	• CI/CD: "Explain your experience with GitLab or Azure DevOps. How do you integrate 'Security Scanning' (SAST/DAST) into a pipeline without slowing down the integration team?"
+
+3. Data Protection & Regulatory Compliance
+Your experience with GDPR, FINMA, and MAS is a massive asset here. This role acts as a bridge between technical integration and legal requirements.
+	• Regulatory: "How do you translate a FINMA requirement (like data residency) into a technical configuration within an Azure-based Data Catalogue?"
+	• DLP & IRM: "You mentioned implementing Azure Information Protection (AIP). How would you integrate AIP labels with a third-party Data Loss Prevention (DLP) tool to automate data discovery?"
+	• L3 Troubleshooting: "Describe a complex data-flow issue you solved where the root cause was a conflict between a security policy and a network firewall rule."
+
+4. Integration & Engineering Mindset
+This role is 35% Integration and 25% Research/R&D. They want an engineer, not just an admin.
+	• The "Vendor" Question: "When a vendor software doesn't natively support a specific bank API, what is your process for engineering a workaround or 'glue' code?"
+	• Scalability: "How do you design a security service to be 'Global-Ready'? What are the latency or synchronization challenges you've faced?"
+
+How to Pivot Your Experience
+Since your background is heavily "Security," use this table to align your answers with their "Integration" needs:
+Your Experience	How to Frame it for this Role
+MDC / Defender	Focus on API integration—how you piped Defender alerts into other systems or automated remediation via Logic Apps.
+Entra ID	Focus on Identity Governance and how you used "Claims-based" attributes to drive access.
+DLP / AIP	Focus on the Integration side—how the labeling engine talks to the Data Catalogue (Purview) or Cloud App Security.
+Regulatory (FINMA)	Emphasize your ability to Auditor-proof an integration by ensuring every automated step is logged and compliant.
+
+Suggested Next Step
+Would you like me to draft a "Technical Pitch" or a "Tell me about yourself" response that specifically bridges your security background with these integration requirements?
+
+From <https://gemini.google.com/app/b3db685a2f4837ea> 
+
+A client needs a disaster recovery solution for their critical application. What Azure services would you recommend?
+A client wants to migrate their on-premises data center to Azure while maintaining a strong security posture. What are some key considerations?
+A company experiences a security breach in their Azure environment. How would you approach the incident response process?
+Are there any emerging technologies or trends that could affect the security of this system?
+Are there any restrictions on data transfers across borders?
+Assisted security architect to design and implement secure and highly available webapp architecture on Azure.
+At what stage of development lifecycle, you should do the security testing? 
+At what stage you usually engage with the developers? 
+By asking these types of questions, you'll gain a deeper understanding of the organization's risk tolerance and the importance of protecting its critical assets.
+Can an IDS be used to prevent intrusions? NO, IDS cannot be used to prevent intrusions, you need IPS. 
+Can data be recovered after shredding is performed?
+Can you describe the role of security operations in the enterprise? 
+Can you estimate the potential financial losses associated with unauthorized access to this data?
+Can you explain the biggest challenge while doing a security test and how did you overcome that?
+Can you explain the three types of network review? 
+Can you explain what a great scoping process look like? 
+Can you name a few EDR tools?
+Can you name a few EDR tools? 
+Can you name a few EDR/XDR/SIEM tools?
+Can you name a few securities software tools that can help you monitor cloud environments?
+Can you name the advantages of cloud-based databases? 
+Can you name the instance types offered by Azure? Ans: Azure offers CPU-to-memory ratio, memory, and compute-optimized interface. In addition, Azure also provides high disk IO (storage optimization) and GPU render (heavy graphic works and rendering).
+Can you name the instance types offered by Azure? Ans: Azure offers CPU-to-memory ratio, memory, and compute-optimized interface. In addition, Azure also provides high disk IO (storage optimization) and GPU render (heavy graphic works and rendering).
+Could you provide a detailed overview of the system architecture, including all components, data flows, and integrations?
+Describe Azure Active Directory (Azure AD) and its features for identity and access management (IAM) in Azure.
+Describe core resources available in Azure
+Describe steganography, its types and how to detect it?
+Describe strategies for securing data at rest and in transit within Azure storage solutions.
+Describe the most difficult auditing procedure you have implemented. 
+Describe your experience with security tools and methodologies for cloud security assessments.
+Design a secure architecture for a highly sensitive application deployed on Azure.
+Discuss best practices for securing Azure virtual machines, including patching and vulnerability management.
+Discuss the role of Azure Sentinel in threat detection and response within Azure.
+Discuss your understanding of security compliance frameworks relevant to Azure, such as SOC 2 or HIPAA.
+Explain Azure site-to-site VPN? à Ans: Connecting the on-services premises network over the IKE/ IPsec VPN tunnel is one of the significant functions falling under Azure site-to-site VPN. Its primary requirement is a VPN device with which one must assign an extreme-facing public IP. 
+Explain Azure site-to-site VPN? à Ans: Connecting the on-services premises network over the IKE/ IPsec VPN tunnel is one of the significant functions falling under Azure site-to-site VPN. Its primary requirement is a VPN device with which one must assign an extreme-facing public IP. 
+Explain high level steps for seizing a live computer system.
+Explain how you stay updated on the latest security threats and vulnerabilities impacting Azure.
+Explain the concept of "Defense in Depth" and how it applies to securing Azure environments.
+Explain the functionalities of Azure Security Center and its role in securing Azure resources.
+Have you architected a security solution that involved SaaS components? What challenges did you face? 
+Have you designed security measures that span overlapping information domains? Can you give me a brief overview of the solution?
+Have you worked in a virtualized environment?
+Have you worked on a project in which stakeholders choose to accept identified security risks that worried you? How did you handle the situation? 
+How are backups tested, and what is the recovery time objective (RTO) and recovery point objective (RPO)?
+How are security controls implemented in the disaster recovery environment?
+How are security events and alerts analyzed and investigated?
+How are system logs and audit trails managed?
+How are the microservices or APIs secured?
+How are user privileges and access rights managed?
+How are you working to get that skill?
+How can Azure AD Privileged Identity Management (PIM) be used to control access to critical resources?
+How can Azure Monitor be used to gain insights into the security posture of an Azure environment?
+How can Defender for Cloud be integrated with third-party security tools for a holistic security posture?
+How can Defender for Cloud be used to achieve compliance with security best practices and industry regulations?
+How can you avoid cross script hacks? 
+How can you encrypt email to secure transmissions about the company? 
+How can you ensure backups are secure? 
+How concerned are you about the possibility of unauthorized access to this data?
+How critical is this data/file/software to the operations of the organization?
+How do different layers of security (network, perimeter, application, etc.) work together?
+How do you approach a pre-sales engagement? How do you establish a relationship with Azure salespeople? Please describe…
+How do you approach learning a new cloud platform or security technology?
+How do you ask developers to document changes? 
+How do you build and maintain relationships with external security partners?
+How do you build and maintain relationships with internal and external stakeholders?
+How do you classify and prioritize data based on its sensitivity?
+How do you communicate security incidents to stakeholders?
+How do you compare files that might have changed since the last time you looked at them? 
+How do you ensure compliance with industry standards (e.g., GDPR, HIPAA, PCI DSS) in Azure?
+How do you ensure compliance with regulatory requirements?
+How do you ensure the security of cloud-based applications and data?
+How do you ensure the security of wireless networks?
+How do you ensure your cloud security solutions are scalable and adaptable to changing requirements?
+How do you ensure your security architecture aligns with those requirements?
+How do you evaluate and select security tools and technologies?
+How do you handle Antivirus alerts?
+How do you handle security audits and assessments? (client-facing context)
+How do you implement data loss prevention (DLP) measures?
+How do you implement secure coding practices and vulnerability management?
+How do you learn from security incidents and improve your architecture?
+How do you manage conflicts between security and development teams?
+How do you manage identity and access control for applications?
+How do you manage secure remote access for employees and other users?
+How do you manage security risks in a hybrid cloud environment?
+How do you manage system major incidents?
+How do you manage system major incidents? 
+How do you manage third-party security risks?
+How do you measure the effectiveness of your security program?
+How do you measure the return on investment (ROI) of security initiatives?
+How do you measure your own effectiveness as a cloud security leader?
+How do you monitor and audit your security posture?
+How do you normally take Azure architecture requirements through to design?
+How do you prioritize security projects and initiatives?
+How do you respond if a new employee requests domain administrator rights?
+How do you respond to data breaches and other security incidents?
+How do you segment your network to limit the spread of attacks?
+How do you test information security? 
+How do you test the security of cloud services like Azure?
+How do you test the security of cloud services like Salesforce or Amazon AWS? 
+How do your secure data at rest and in transit?
+How does the adoption of cloud computing, microservices, and other new technologies impact your security architecture?
+How does this system integrate with other systems, and what are the security implications of those integrations?
+How important is it to your department that this data remains confidential?
+How is a VM created in Azure CLI?  
+How is a VM created in Azure CLI?  
+How is data integrity ensured?
+How is data usage monitored and audited?
+How is identity and access management integrated across different systems?
+How often are security audits and vulnerability assessments conducted?
+How often should Patch management be performed?
+How to automate the remediation MDC recommendations?
+How to build compliance requirements and SaaS Application security baselines?
+How to connect devices with Azure AD?
+How to convince IT and development team to remediate vulnerability?
+How to create a query to configure security alert as required, email should be sent?
+How to create vulnerability report for specific product?
+How to detect CSRF attack?
+How to fine tune security recommendations in MDC?
+How to get the listening ports which is greater than 6000 using netstat?
+How to implement MFA in Azure AD?
+How to implement Microsoft Sentinel?
+How to investigate or trace any security incident which occurred due to exploitation of some vulnerability
+How to lead project in complex environment by effectively undertake challenges?
+How to perform incident investigation on Microsoft 365 Defender
+How to remediate security recommendations in MDC?
+How to review vulnerability report findings?
+How to search suspicious applications through Splunk dashboard?
+How to simulate MDC alert on Azure Linux VM?
+How to track patch exceptions?
+How to validate/check integrity?
+How to write KQL query to count failed sign-in authentications on 2 devices? DeviceLogonEvents | where DeviceName in (device1, device2) and ActionType == FailureReason | summarize LogonFailure = count() by DeviceName, LogonType.
+How will data be transferred between systems, and what security measures will be in place?
+How will the architecture support ongoing security monitoring and incident response?
+How will the system handle sensitive data?
+How would a data breach affect customer trust or brand reputation?
+How would you build trust and rapport with cloud vendors and subject matter experts?
+How would you bypass AV? 
+How would you communicate complex cloud security concepts to non-technical stakeholders?
+How would you conduct a password audit? 
+How would you conduct a threat modelling exercise for a cloud environment?
+How would you configure Azure Security Center alerts to identify potential security threats?
+How would you deliver a social engineering security test? 
+How would you differentiate between IaaS, PaaS, and SaaS in your language? à Ans: Infrastructure as a service (IaaS): It is a paid service providing users with components like OS, Networking, etc. The admin can use it for application hosting—for example, Azure VMs. Platform as a service (PaaS): Mainly used for building and developing applications regardless of the host environment. For example, Azure SQL. Software as a service (SaaS): It is mainly a paid service. For example, Office 
+How would you differentiate between IaaS, PaaS, and SaaS in your language? à Ans: Infrastructure as a service (IaaS): It is a paid service providing users with components like OS, Networking, etc. The admin can use it for application hosting—for example, Azure VMs. Platform as a service (PaaS): Mainly used for building and developing applications regardless of the host environment. For example, Azure SQL. Software as a service (SaaS): It is mainly a paid service. For example, Office 
+How would you document cloud security policies, procedures, and best practices?
+How would you handle disagreements with team members regarding security decisions?
+How would you implement data loss prevention (DLP) controls in a cloud environment?
+How would you implement role-based access control (RBAC) to grant least privilege access in Azure?
+How would you lead and motivate a team of cloud security professionals?
+How would you leverage Azure Key Vault to manage and protect encryption keys?
+How would you leverage your knowledge of cloud security certifications to benefit the organization?
+How would you manage conflicting priorities between security and business objectives?
+How would you measure how well a security team is doing?
+How would you prioritize security risks in a cloud environment?
+How would you provide proactive recommendations for improving the organization's cloud security posture?
+How would you secure the East-West traffic in the cloud? 
+How would you secure the traffic between cloud services?
+How would you stay current with evolving cloud security threats and best practices?
+How would you test an ATM or smart parking meter? 
+How would you trace a spoofed email sent from spoofed IP address.
+How would your organization be affected if this data were publicly disclosed?
+How would your secure data at rest and in transit within Azure?
+Identify some procedures and methodology for establishing relationships and how to understand business requirements from customer.
+If an organization is facing a major change, what is your approach as Azure Solution Architect to suggest you face it? What steps are you are going to do? How could resolve this situation?
+If this source code were leaked, how would it impact your company's intellectual property?
+If this specific data/file/software were accessed by an unauthorized user, what would be the potential impact on your department/organization?
+If you could have the perfect job and the perfect manager, what would that look like? What you do day to day, and what kind of projects would you have?
+Imagine this customer database were accessed by an external attacker. What potential risks do you foresee?
+In pen testing what is better, a red team or a blue team? 
+Is it a good idea to pay the ransom in when your data has been encrypted by a ransomware?
+Keep yourself updated with the Latest Information Security News, Trends, campaigns?
+List a couple of tests that you would do to a network to identify security flaws.
+List few situations wherein lost data cannot be recovered.
+List of Azure Cloud Native Security Services
+List of Security Controls for Azure API
+List of security controls for Azure App Service
+List of Security Controls for Azure Automation Account
+List of Security Controls for Azure Cache for Redis
+List of Security Controls for Azure Cache for Redis 
+List of Security Controls for Azure Cognitive Services
+List of Security Controls for Azure Data Lake services
+List of Security Controls for Azure Disk
+List of Security controls for Azure Function Apps
+List of Security Controls for Azure IoT Hub
+List of Security Controls for Azure MariaDB database
+List of Security Controls for Azure PostgreSQL database
+List of Security Controls for Azure SQL Database and servers
+List of Security Controls for Azure Storage Account
+List of Security Controls for Azure Web Apps
+List of Security Controls for Azure Web Pub Sub service
+Mention the tools used in the creation of VNET?  à Ans: Tools employed in creating Vents are Powershell, Azure CLI, and Azure Portal. 
+Mention the tools used in the creation of VNET?  à Ans: Tools employed in creating Vents are Powershell, Azure CLI, and Azure Portal. 
+Mention what are personal traits you should consider protecting data?
+Name a few types of security breaches. 
+Name some critical applications of Azure? à Ans: The critical applications of Azure are as listed below: Web applications, Storage, Cloud services, Mobile apps, Media services, Infrastructure services.
+Name some critical applications of Azure? à Ans: The critical applications of Azure are as listed below: Web applications, Storage, Cloud services, Mobile apps, Media services, Infrastructure services.
+Name the steps that help implement MFA? à Ans: Implementing MFA in Azure can be listed in three ways, they are: User-level MFA, The policy of conditional access, Security default. 
+Name the steps that help implement MFA? à Ans: Implementing MFA in Azure can be listed in three ways, they are: User-level MFA, The policy of conditional access, Security default. 
+On a scale of 1 to 5 (or using your organization's sensitivity classification), how sensitive is this data?
+Please describe a successful project that reflects your design/implementation/consulting experience about Azure Solution Architecture?
+Please describe or tell us about a special contribution you have made to your last employer?
+Scenario-Based Questions:
+Security Best Practices:
+Security Services and Tools:
+Tell about any major security incident that happened recently.
+Tell me about a project you worked on in the past that you really enjoyed.
+The mouse on your computer screen starts to move around on its own and click on things on your desktop. What do you do?
+What all should be included in a CEO-level report from a security standpoint?
+What are key considerations/guidelines when you are going to make some Azure Architecture recommendations?
+What are most important characteristics of an Azure solution that you need take in count when you design it?
+What are some common limitations of Microsoft Defender for Cloud?
+What are some common misconfigurations that can lead to cloud security breaches? How would you identify and remediate them?
+What are some of the drawbacks of threat hunting compared to similar processes?
+What are some of the security risks for the organization when using Slack or Microsoft Teams?
+What are some of the security risks for the organization when using Microsoft Teams?
+What are the advantages of auto-scaling in Azure? à Scaling is based on demand and cost-effective; schedule scaling to a specific period.
+What are the advantages of IDS?
+What are the anticipated scalability and performance requirements?
+What are the authentication and authorization mechanisms used for external integrations?
+What are the basic cloud security controls?
+What are the benefits of intrusion detection system?
+What are the core principles of information security? Or What is the CIA triangle? 
+What are the data access control requirements (e.g., role-based access control, attribute-based access control)?
+What are the data backup and recovery procedures?
+What are the data encryption requirements (e.g., at rest, in transit)?
+What are the data retention and disposal policies?
+What are the defined security policies and standards that must be adhered to?
+What are the differences between Owner and Global Administrator in Azure AD? à A person signing up for an Azure subscription is assigned the owner role for Azure resources. This owner can use a school or work account or a Microsoft account to manage services in the Azure portal. It is associated with the Azure subscription. A person signing up with the Azure subscription is assigned the global administrator role for the directory. Access to various directory features and related features is given to these administrators. The administrator's job includes managing domain or user licenses, assigning administrative roles to other users, etc. 
+What are the differences between Owner and Global Administrator in Azure AD? à A person signing up for an Azure subscription is assigned the owner role for Azure resources. This owner can use a school or work account or a Microsoft account to manage services in the Azure portal. It is associated with the Azure subscription. A person signing up with the Azure subscription is assigned the global administrator role for the directory. Access to various directory features and related features is given to these administrators. The administrator's job includes managing domain or user licenses, assigning administrative roles to other users, etc. 
+What are the different security principles (CIA triad, Defense in Depth, etc.) and how do they apply to architecture?
+What are the different threat models to consider when designing a security architecture?
+What are the different types of application vulnerabilities?
+What are the different types of security assessments offered by Defender for Cloud?
+What are the different types of sensitive data your organization stores?
+What are the disaster recovery and business continuity plans?
+What are the features of architecture building blocks? Product vendor neutral, Guides the development of solution architecture, Capture, and define requirements such as function data application.
+What are the first steps to secure Linux server?
+What are the hardware and software configurations of the systems involved?
+What are the high-level steps for seizing a live computer system?
+What are the incident response procedures and escalation processes?
+What are the key benefits of using Defender for Cloud compared to other cloud security solutions?
+What are the key goals of a secure architecture?
+What are the key technologies and platforms used in this solution?
+What are the latest trends in Information Security?
+What are the leading cyber security vendors? What do they do?
+What are the legal requirements for Penetration Tests?
+What are the main risks and vulnerabilities associated with the current architecture?
+What are the most common types of attacks that threaten enterprise data security?
+What are the most damaging types of malwares?
+What are the most important steps to secure new web server?
+What are the network configurations and security controls (e.g., firewalls, intrusion detection/prevention systems)?
+What are the other half vulnerabilities if 50% are application security pen test findings?
+What are the password attacks and which tools are used?
+What are the password policies and multi-factor authentication requirements?
+What are the patching and vulnerability management processes?
+What are the planned future enhancements and expansions for this system, and how will they impact security?
+What are the possible Causes of Security Vulnerabilities?
+What are the potential legal or regulatory consequences if this data were compromised?
+What are the regulatory requirements related to the data?
+What are the risks associated with public Wi-Fi?
+What are the root causes of data leakage?
+What are the security architecture requirements? 
+What are the security concerns in Cloud Computing?
+What are the security considerations for emerging technologies like blockchain, AI/ML, and IoT?
+What are the security controls to protect Azure AD?
+What are the security controls to protect Azure Network?
+What are the security controls to protect Azure VMs?
+What are the several indicators of compromise (IOC) that organizations should monitor?
+What are the specific requirements for handling this sensitive data?
+What are the specific security requirements for this system, including regulatory compliance (e.g., GDPR, HIPAA, PCI DSS)?
+What are the three first steps when responding to a ransomware attack?
+What are the top 3 countries in information war?
+What are the trade-offs between security and other factors like performance, cost, and usability?
+What are the types of cyber attackers?
+What are the types of security breaches?
+What are the types of security controls?
+What are the user account management and authentication procedures?
+What are the various ways to handle account brute forcing? à Look for discussion of account lockouts, IP restrictions, fail ban, commercial versions thereof, etc.
+What are the ways cyber criminals are using services like LinkedIn?
+What are the ways the attackers are using AI?
+What are the you biggest bounties you have earned? 
+What are things to take into consideration when using public cloud instead of private? 
+What are things to take into consideration when using the public cloud instead of private? 
+What are web server vulnerabilities and name a few methods to prevent web server attacks? 
+What are your career goals, and how does this role fit into your long-term plans?
+What are your professional values? Why are professional ethics important in the information security field?
+What are your salary expectations for this position?
+What are your thoughts on the future of cloud security?
+What can you do if you fall victim to identity theft?
+What can you offer our organization that other candidates cannot?
+What can you use to defend against multiple login attempts? You can create a lockout policy that locks accounts when a user has too many login attempts. 
+What care should be taken while packaging the seized evidence?
+What challenges are you looking for in the position as an Azure Enterprise Solution Architect?
+What do you do if a rollout goes wrong? 
+What do you do if a rollout goes wrong?
+What do you do if you find out that there is an active problem on your network. You can fix it, but it is out of your jurisdiction?
+What do you do, if you are an employee for a tech department in a non-management position. A high-level executive demand that you break protocol and allow him to use his home laptop?   
+What do you do, if you are remoted in to a headless system in a remote area. You have no physical access to the hardware and you need to perform an OS installation?   
+What do you mean by checksum? What are the popular algorithms for calculating checksums? What is its 
+What do you mean by file carving?
+What do you think of social networking sites such as Facebook and LinkedIn?
+What do you think the most important technology is right now?
+What document describes steps to bring up a network that has had a major outage? 
+What document describes steps to bring up a network that has had a major outage?
+What does a SOC do?
+What does lockpicking have to do with security testing? 
+What does PCI-DSS say about pen testing? 
+What does the shared responsibility model in cloud mean? 
+What does the shared responsibility model in cloud mean?
+What enterprise architecture and management frameworks do you know? And how are you have used them?
+What have you done to protect the organization when the world has recently been hit by an Attack/Virus?
+What information security challenges are faced in a cloud computing environment?
+What IoC we can gather from alert related to Microsoft Defender for Key Vault for further investigation? Attacker object id which helps to track victim azure resources, if suspicious app trying to access resource, then it collects attacker IP address. If suspicious user trying to access resource, then it collects attacker User Principal Name (UPN)
+What is a common method of disrupting enterprise systems? 
+What is a false positive and false negative in case of IDS?
+What is a false positive and false negative in firewall detection? (Which is worse)
+What is a skill you wish you had but don’t yet have?
+What is a Social Engineer?
+What is an incident, and how do you manage it?
+What is an RFC? 
+What is automated user provisioning for SaaS apps? Azure VAD automates creating, removing, and maintaining identities in various SaaS apps. 
+What is automated user provisioning for SaaS apps? Azure VAD automates creating, removing, and maintaining identities in various SaaS apps. 
+What is Azure Firewall?
+What is Azure Secure Score and how we could increase it?
+What is better, a red team or a blue team? Another opinion question, more along the lines of where your interests lie. In penetration testing scenarios, a red team is trying to break in while a blue team is defending. Red teams typically are considered the cooler of the two, while the blue team is usually the more difficult. The usual rules apply like in any defense game: the blue team must be good every time, while the red team only must be good once. That is not entirely accurate given the complexities at work in most scenarios, but it is close enough to explain the idea. 
+What is better, a red team or a blue team? Another opinion question, more along the lines of where your interests lie. In penetration testing scenarios, a red team is trying to break in while a blue team is defending. Red teams typically are considered the “cooler” of the two, while the blue team is usually the more difficult. The usual rules apply like in any defense game: the blue team must be good every time, while the red team only must be good once. That is not entirely accurate given the complexities at work in most scenarios, but it is close enough to explain the idea. 
+What is business continuity management? How does it relate to security?
+What is capability-based security? Have you incorporated this pattern into your designs? How? 
+What is change management?
+What is Cognitive Cyber security?
+What is Command & Control (C2)?
+What is Data Leakage and give examples of some root causes?
+What is data leakage? How will you detect and prevent it?
+What is difference between high and critical vulnerability finding?
+What is difference between IPS and IDS system?
+What is DLP? How does it work?
+What is EDR? What is difference between EDR and XDR?
+What is exfiltration?
+What is False-Positive and False-Negative, As an Analyst, which one would concern you more? The terms are related to event alerts.  A False Positive is an event which the alert was triggered but did not occur.  A False-Negative is when an event does NOT trigger an alert and is allowed as a legitimate where the event is malicious. Both, False-Negatives indicate that tuning should take place to identify the events as the monitoring device is allowing malicious events without alerting or taking preventative actions. 
+What is False-Positive and False-Negative, As an Analyst, which one would concern you more?
+What is file shredding?
+What is incident management?
+What is information security and how is it achieved?
+What is Key Management system, and list the vendors?
+What is lacking in security architecture pattern that prevents it from being used as finished diagram? – Context
+What is layered security architecture? Is it a good approach? Why? 
+What is Microsoft Defender for Cloud and its features?
+What is Microsoft Sentinel and its features?
+What is Network Security Group and how to implement it?
+What is non-repudiation as it applies to IT security?
+What is one way to do a cross-script hack? 
+What is RBAC in Azure and how to implement it?
+What is risk detection? àRisk detection is categorized under Azure Identity Protection. All the activities against the user account can be detected using Risk detection. 
+What is risk detection? àRisk detection is categorized under Azure Identity Protection. All the activities against the user account can be detected using Risk detection. 
+What is SIEM? Why it is useful?
+What is slack space?
+What is some security software tools you can use to monitor the network?
+What is Splunk Forwarder, Indexer and Console?
+What is the advantage of API over forward proxy?
+What is the advantage of API over forward proxy? 
+What is the biggest challenge while doing a security test and how did you overcome that?
+What is the business value of this data/file/software?
+What is the chain of custody?
+What is the difference between false positive and false negative?
+What is the difference between high and critical vulnerability finding? 
+What is the difference between information protection and information assurance?
+What is the difference between logical and physical security? Can you give an example of both?
+What is the difference between SIEM and UEBA?
+What is the difference between the red team and blue team? Red team and blue team refers to cyberwarfare. Many organizations split the security team into two groups as red team and blue team. The red team refers to an attacker who exploits weaknesses in an organization's security. The blue team refers to a defender who identifies and patches vulnerabilities into successful breaches. 
+What is the difference in testing mobile and web application? 
+What is the difference in testing web application and API? 
+What is the goal of information security within an organization?
+What is the known open source IPS products?
+What is the last program or script that you wrote and what problem did it solve?
+What is the most difficult part of auditing for you? 
+What is the most important thing to have in place that will save you from having to pay a ransom in the event you have fallen victim to a ransomware attack? - A full system backup
+What is the patch management process?
+What is the PIM in Azure AD and how to implement it?
+What is the RDP attack vector of malware?
+What is the relationship between information security and data availability?
+What is the role of Information Security Analyst?
+What is the role of Threat Hunter?
+What is the security best practices for DevOps?
+What is the security exception process?
+What is the sensitivity level of each data type (e.g., public, confidential, restricted)?
+What is the specific metric that measures information security risk?
+What is the standard procedure for data clean up?
+What is the triad of security operations?
+What is the vendor EDR/XDR/SIEM tools?
+What is Virtual Network and how to implement it?
+What is Weaponization phase in cyber kill chain?
+What is your favourite exploit? 
+What is your favourite physical security testing tool or device? 
+What is your incident response plan and how do you test it?
+What is your opinion on hacktivist groups such as Anonymous?
+What is your preferred method of giving remote employees access to the company network and are there any weaknesses associated to it? 
+What kind of systems do you have at home or in the cloud to tinker with?
+What kind of websites and cloud services would you block? 
+What measures are in place to protect the data from unauthorized access, modification, or disclosure?
+What methods are used to encrypt data at rest and in transit?
+What parts of the information security should the organizations outsource?
+What problem-solving frameworks do you use to approach security challenges?
+What role does Cyber awareness have in information security? 
+What security challenges do unified communications present? 
+What security conferences have you participated over the past 24 months?
+What security considerations would you keep in mind when automating security tasks?
+What security controls are present in cloud but not present in on-premises infrastructure? What is the difference between cloud and on-premises security controls? What additional security controls we need to consider when moving workloads to cloud?
+What security frameworks are being utilized?
+What security monitoring tools and processes are in place?
+What security regulations and compliance requirements does your organization need to meet?
+What should you do after you suspect a network has been hacked?
+What should you do after you suspect a network has been hacked? 
+What should you do if you receive a suspicious email from your bank?
+What special security challenges do SOA present? 
+What strategies can you use to secure cloud and hybrid environments?
+What strategies would you use to continuously improve your cloud security knowledge and skills?
+What strategies would you use to manage expectations with stakeholders regarding cloud security timelines and resources?
+What strategies would you use to raise awareness of cloud security best practices within the organization?
+What technologies and approaches are used to secure information and services deployed on cloud computing infrastructure? 
+What tools and processes do you have in place for incident detection, investigation, and remediation?
+What tools and techniques can you use for web application security (WAF, API security, etc.)?
+What tools in MDC are used to collect data related to IP addresses? (Log analytics agent and Security extensions)
+What type of copying is appropriate for getting data from a live system that cannot be taken offline to conduct forensic analysis? (Disk to file backup)
+What type of security flaw is there in VPN? 
+What type of systems should be audited? 
+What types of data are stored, processed, and transmitted by this system?
+What types of network security controls are available (firewalls, intrusion detection/prevention systems, etc.)?
+What types of RFC or change management software have you used? 
+What useful forensic data can be extracted from the Application layer of the TCP/IP protocol stack? (HTTP addresses)
+What was challenging about it?
+What were some of the findings in one of your last times you tested an incident response plan?
+What will you do if data is encrypted with ransomware, is it a good idea to pay the ransom?
+What would be the effect of unautorized modification of the configuration files for the production servers?
+What would be the reason that MDC Alert Suppressions rule is not suppressing recent unwanted alerts?
+What would be the topic of phishing email if you would send it today? 
+When designing security architectures, it's crucial to gather comprehensive information from solution architects, data owners, and administrators. Here's a breakdown of questions to ask each group:
+Where do you get your security news from? Can you walk me through economics of cyber security?
+Where is the data stored, and what are the implications for data sovereignty and privacy?
+Which Azure services we can configure the WAF and How?
+Which is the most difficult auditing procedure you have implemented?
+Who are the authorized users and what are their access requirements?
+Who do you look up to within the field of Information Security? Why? A standard question type.
+Who is more dangerous to an organization: insiders or outsiders?
+Who is responsible for securing the data and users when using SaaS or IaaS services? 
+Who needs access to the data, and for what purposes?
+Who typically owns security architecture requirements and what stakeholders contribute? 
+Why are so many Azures Cosmos DB breached? 
+Why are so many storage accounts breached? 
+Why are the containers vulnerable? 
+Why are the Cyber insurance premiums raising? 
+Why are the incidents relating to insiders more expensive?
+Why are the insurance companies paying out the ransomware demands?
+Why are the roles important when testing API’s? 
+Why are you interested in this Capability Lead (Cloud Security) role?
+Why are you leaving your current job?
+Why did you choose to approach it the way you did vs. list alternatives?
+Why did you choose your career in cloud computing? 
+Why does it take so long for organizations to move their workloads to the cloud?
+Why does it take so long for organizations to move their workloads to the cloud? 
+Why is incident response plan important?
+Why is incident response plan important? 
+Why is Tesla paying million dollars for bugs/vulnerabilities?
+Why would you bring in an outside contractor to perform a penetration test?
+Worked on initial assessment and implementation of Microsoft Sentinel.
+Worked on security alerts, incidents, and escalated them to respective teams for resolution.
+Worked with business units to foster risk awareness in the cloud space.
+Worked with clients and stakeholders to assess and select SIEM tools and align security solutions with business goals.
+Worked with external forensic teams and vendors for advanced threat investigations and tool support.
+Worked with security monitoring systems, ensuring that SIEM systems tracked all business-critical applications.
+Worked with third-party vendors to resolve enterprise-level security issues.
+Worked with vendors/stakeholders to remediate non-compliant cloud resources.
+Would you like to delve deeper into a specific area of Zero-Trust implementation in Azure?
+Write the advantages of scaling in Azure? The advantages of scaling in Azure can be categorized as Scale up or down based on demand, highly cost-effective, Application performance is maximized, Scheduled scaling to periods. 
+Write the advantages of scaling in Azure? The advantages of scaling in Azure can be categorized as Scale up or down based on demand, highly cost-effective, Application performance is maximized, Scheduled scaling to periods. 
+You are an employee for a tech department in a non-management position. A high-level executive demand that you break protocol and allow him to use his home laptop What do you do?
+You are tasked with implementing a multi-factor authentication (MFA) solution for Azure AD. Describe your approach.
+You find out that there is an active problem on your network. You can fix it, but it is out of your jurisdiction. What do you do?   
+You managed to hack the smart thermometer in casino, how would you make your way to the high-roller database and back? 
+You read an interesting article online that contains links to related articles, so you follow one of them and soon become a victim of a ransomware attack. What was the likely attack vector used by the bad actors?
+You receive a pop-up message on your screen telling you that critical files on your system have been encrypted, and you must pay a fee to get the encryption key. What type of ransomware has attacked your system?
+You see a user logging in as root to perform basic functions. Is this a problem?
+
+
